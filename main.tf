@@ -89,6 +89,8 @@ resource "aws_autoscaling_group" "asg-example" {
     propagate_at_launch = true
   }
 }
+
+#----lookup the default VPC and its subnets------
 data "aws_vpc" "default" {
   default = true
 }
@@ -98,6 +100,7 @@ data "aws_subnets" "default" {
     values = [data.aws_vpc.default.id]
   }
 }
+
 #------Output the subnet IDs------
 output "subnet_ids" {
   value = data.aws_subnets.default.ids
